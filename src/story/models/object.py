@@ -7,17 +7,17 @@ from . import base
 
 class Object(base.StoryBase):
 
-    key = dict(
+    key = appier.field(
         index = True,
         safe = True,
         immutable = True
     )
 
-    name = dict(
+    name = appier.field(
         index = True
     )
 
-    engine = dict(
+    engine = appier.field(
         index = True,
         safe = True
     )

@@ -7,13 +7,13 @@ from . import base
 
 class Bucket(base.StoryBase):
 
-    key = dict(
+    key = appier.field(
         index = True,
         safe = True,
         immutable = True
     )
 
-    name = dict(
+    name = appier.field(
         index = True
     )
 
