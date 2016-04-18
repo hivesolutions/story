@@ -5,7 +5,7 @@ import appier
 
 from . import base
 
-class Object(base.StoryBase):
+class Bucket(base.StoryBase):
 
     key = dict(
         index = True,
@@ -17,16 +17,9 @@ class Object(base.StoryBase):
         index = True
     )
 
-    bucket = appier.field(
-        type = appier.references(
-            "Bucket",
-            name = "id"
-        )
-    )
-
     @classmethod
     def validate(cls):
-        return super(Object, cls).validate() + [
+        return super(Bucket, cls).validate() + [
             appier.not_null("name"),
             appier.not_empty("name")
         ]
