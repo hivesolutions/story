@@ -4,4 +4,4 @@ session.shelve*
 
 /dist
 /build
-/src/story.egg-info
+/src/story_python.egg-info
