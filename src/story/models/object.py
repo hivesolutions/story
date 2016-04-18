@@ -28,7 +28,7 @@ class Object(base.StoryBase):
     )
 
     bucket = appier.field(
-        type = appier.references(
+        type = appier.reference(
             "Bucket",
             name = "id"
         )
@@ -53,3 +53,11 @@ class Object(base.StoryBase):
         base.StoryBase.pre_create(self)
         self.key = self.secret()
         self.description = self.key[:8]
+
+    @appier.link(name = "View")
+    def view_url(self, absolute = False):
+        return self.owner.url_for(
+            "object_api.data",
+            absolute = absolute,
+            key = self.key
+        )
