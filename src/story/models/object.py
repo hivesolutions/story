@@ -17,6 +17,16 @@ class Object(base.StoryBase):
         index = True
     )
 
+    engine = dict(
+        index = True,
+        safe = True
+    )
+
+    file = appier.field(
+        type = appier.File,
+        private = True
+    )
+
     bucket = appier.field(
         type = appier.references(
             "Bucket",
