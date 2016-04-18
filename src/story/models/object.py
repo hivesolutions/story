@@ -41,6 +41,14 @@ class Object(base.StoryBase):
             appier.not_empty("name")
         ]
 
+    @classmethod
+    def list_names(cls):
+        return ["id", "name", "key", "engine", "bucket"]
+
+    @classmethod
+    def order_name(self):
+        return ["id", -1]
+
     def pre_create(self):
         base.StoryBase.pre_create(self)
         self.key = self.secret()
