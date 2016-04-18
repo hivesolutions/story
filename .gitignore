@@ -1,3 +1,7 @@
 *.pyc
 
 session.shelve*
+
+/dist
+/build
+/src/story.egg-info
