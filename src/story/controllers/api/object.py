@@ -37,7 +37,7 @@ class ObjectApiController(appier.Controller):
         )
         file = object.file
         if not file: raise appier.NotFoundError(
-            message = "File not found for object '%key'" % key,
+            message = "File not found for object '%s'" % key,
             code = 404
         )
         return self.send_file(

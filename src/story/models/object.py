@@ -49,6 +49,11 @@ class Object(base.StoryBase):
     def order_name(self):
         return ["id", -1]
 
+    def pre_save(self):
+        base.StoryBase.pre_create(self)
+        if hasattr(self, "engine") and self.engine:
+            self.file.engine = self.engine
+
     def pre_create(self):
         base.StoryBase.pre_create(self)
         self.key = self.secret()
