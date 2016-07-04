@@ -36,19 +36,66 @@ class ObjectApiController(appier.Controller):
             rules = False
         )
         file = object.file
+        return self._handle_file(file)
+
+    def _handle_file(self, file):
         if not file: raise appier.NotFoundError(
-            message = "File not found for object '%s'" % key,
+            message = "File not found",
             code = 404
         )
+        if file.is_seekable(): self.request.set_header(
+            "Accept-Ranges",
+            "bytes"
+        )
+        is_partial, range = self._handle_range(file)
         return self.send_file(
-            self._file_generator(file),
+            self._file_generator(file, range = range),
             content_type = file.mime,
-            etag = file.etag
+            etag = None if is_partial else file.etag
         )
 
-    def _file_generator(self, file, size = 40960):
-        yield len(file)
+    def _handle_range(self, file):
+        # retrieves the value of the range header and uses
+        # such value to try to determine if the current request
+        # is a partial one and if the current file is seekable
+        # if that's not the case returns immediately as not partial
+        range_s = self.request.get_header("Range", None)
+        is_partial = True if range_s else False
+        is_partial = is_partial and file.is_seekable()
+        if not is_partial: return is_partial, None
+
+        # retrieves the size/length of the current file and then
+        # construct the proper range tuple using the range header
+        file_size = len(file)
+        range_s = range_s[6:]
+        start_s, end_s = range_s.split("-", 1)
+        start = int(start_s) if start_s else 0
+        end = int(end_s) if end_s else file_size - 1
+        range = (start, end)
+
+        # updates the values of the current request with the new code
+        # for partial data and the content range associated
+        self.request.set_code(206)
+        self.request.set_header(
+            "Content-Range",
+            "bytes %d-%d/%d" % (range[0], range[1], file_size)
+        )
+
+        # returns the final is partial (flag) and range tuple to the
+        # caller method to be used as the base values for generator
+        return is_partial, range
+
+    def _file_generator(self, file, range = None, size = 40960):
+        file_size = len(file)
+        if range: data_size = range[1] - range[0] + 1
+        else: data_size = file_size
+        yield data_size
+        if range: file.seek(range[0])
         while True:
-            data = file.read(size)
+            read_size = data_size if size > data_size else size
+            data = file.read(read_size)
             if not data: break
             yield data
+            data_size -= len(data)
+            if data_size > 0: continue
+            break
