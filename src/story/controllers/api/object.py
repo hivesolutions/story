@@ -86,16 +86,19 @@ class ObjectApiController(appier.Controller):
         return is_partial, range
 
     def _file_generator(self, file, range = None, size = 40960):
-        file_size = len(file)
-        if range: data_size = range[1] - range[0] + 1
-        else: data_size = file_size
-        yield data_size
-        if range: file.seek(range[0])
-        while True:
-            read_size = data_size if size > data_size else size
-            data = file.read(read_size)
-            if not data: break
-            yield data
-            data_size -= len(data)
-            if data_size > 0: continue
-            break
+        try:
+            file_size = len(file)
+            if range: data_size = range[1] - range[0] + 1
+            else: data_size = file_size
+            yield data_size
+            if range: file.seek(range[0])
+            while True:
+                read_size = data_size if size > data_size else size
+                data = file.read(read_size)
+                if not data: break
+                yield data
+                data_size -= len(data)
+                if data_size > 0: continue
+                break
+        finally:
+            file.cleanup()
