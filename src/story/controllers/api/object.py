@@ -41,7 +41,14 @@ class ObjectApiController(appier.Controller):
             code = 404
         )
         return self.send_file(
-            file.data,
+            self._file_generator(file),
             content_type = file.mime,
             etag = file.etag
         )
+
+    def _file_generator(self, file, size = 40960):
+        yield len(file)
+        while True:
+            data = file.read(size)
+            if not data: break
+            yield data
