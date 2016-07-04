@@ -51,6 +51,8 @@ class Object(base.StoryBase):
 
     def pre_save(self):
         base.StoryBase.pre_save(self)
+        if not hasattr(self, "engine") or not self.engine:
+            self.engine = appier.conf("ENGINE", None)
         if hasattr(self, "key") and self.key:
             self.file.guid = self.key
         if hasattr(self, "engine") and self.engine:
