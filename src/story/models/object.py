@@ -50,7 +50,9 @@ class Object(base.StoryBase):
         return ["id", -1]
 
     def pre_save(self):
-        base.StoryBase.pre_create(self)
+        base.StoryBase.pre_save(self)
+        if hasattr(self, "key") and self.key:
+            self.file.guid = self.key
         if hasattr(self, "engine") and self.engine:
             self.file.engine = self.engine
 
@@ -58,6 +60,7 @@ class Object(base.StoryBase):
         base.StoryBase.pre_create(self)
         self.key = self.secret()
         self.description = self.key[:8]
+        self.file.guid = self.key
 
     @appier.link(name = "View")
     def view_url(self, absolute = False):
