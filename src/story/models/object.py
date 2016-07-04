@@ -71,3 +71,10 @@ class Object(base.StoryBase):
             absolute = absolute,
             key = self.key
         )
+
+    @appier.link(name = "Info")
+    def info_url(self):
+        return self.owner.url_for(
+            "object_api.info",
+            key = self.key
+        )
