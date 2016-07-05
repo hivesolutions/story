@@ -65,6 +65,11 @@ class Object(base.StoryBase):
         self.description = self.key[:8]
         self.file.guid = self.key
 
+    def pre_delete(self):
+        base.StoryBase.pre_delete(self)
+        object = self.reload(rules = False)
+        if object.file: object.file.delete()
+
     @appier.link(name = "View")
     def view_url(self, absolute = False):
         return self.owner.url_for(
