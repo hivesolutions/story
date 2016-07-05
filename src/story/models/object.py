@@ -19,7 +19,8 @@ class Object(base.StoryBase):
 
     engine = appier.field(
         index = True,
-        safe = True
+        safe = True,
+        immutable = True
     )
 
     file = appier.field(
