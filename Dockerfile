@@ -1,4 +1,4 @@
-FROM hivesolutions/alpine_dev:latest
+FROM hivesolutions/pypy:latest
 MAINTAINER Hive Solutions
 
 EXPOSE 8080
@@ -14,6 +14,6 @@ ADD requirements.txt /
 ADD extra.txt /
 ADD src /src
 
-RUN pip3 install -r /requirements.txt && pip3 install -r /extra.txt && pip3 install --upgrade netius
+RUN pip install -r /requirements.txt && pip install -r /extra.txt && pip install --upgrade netius
 
-CMD ["/usr/bin/python3", "/src/story/main.py"]
+CMD ["/usr/bin/python", "/src/story/main.py"]
