@@ -39,15 +39,26 @@ class ObjectApiController(appier.Controller):
         return self._handle_file(file)
 
     def _handle_file(self, file):
+        # in case there's no file value found raises an exception
+        # indicating such problem (should be properly handled)
         if not file: raise appier.NotFoundError(
             message = "File not found",
             code = 404
         )
+
+        # verifies if the file object is "seekable" (depends on engine)
+        # and if it is sets the accept ranges header indicating so
         if file.is_seekable(): self.request.set_header(
             "Accept-Ranges",
             "bytes"
         )
+
+        # handles the range request from the client so that if a chunk
+        # was requested that simple range is retrieved
         is_partial, range = self._handle_range(file)
+
+        # runs the send file operation taking into account that the a
+        # generator is going to be used for the sending operation
         return self.send_file(
             self._file_generator(file, range = range),
             content_type = file.mime,
