@@ -84,3 +84,9 @@ class Object(base.StoryBase):
             "object_api.info",
             key = self.key
         )
+
+    @property
+    def file_name(self):
+        object = self.reload(rules = False)
+        if object.name: return object.name
+        return object.key
