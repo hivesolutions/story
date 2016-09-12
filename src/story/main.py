@@ -12,7 +12,6 @@ class StoryApp(appier.WebApp):
             name = "story",
             parts = (
                 appier_extras.AdminPart,
-                appier_extras.OpbeatPart
             ),
             *args, **kwargs
         )
