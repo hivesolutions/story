@@ -3,12 +3,15 @@ MAINTAINER Hive Solutions
 
 EXPOSE 8080
 
+VOLUME /data
+
 ENV LEVEL INFO
 ENV SERVER netius
 ENV SERVER_ENCODING gzip
 ENV HOST 0.0.0.0
 ENV PORT 8080
 ENV MONGOHQ_URL mongodb://localhost:27017
+ENV FS_PATH /data
 
 ADD requirements.txt /
 ADD extra.txt /
