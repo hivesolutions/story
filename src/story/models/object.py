@@ -47,7 +47,7 @@ class Object(base.StoryBase):
         return ["id", "name", "key", "engine", "bucket"]
 
     @classmethod
-    def order_name(self):
+    def order_name(cls):
         return ["id", -1]
 
     def pre_save(self):
