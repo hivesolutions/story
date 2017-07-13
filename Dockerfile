@@ -12,6 +12,7 @@ ENV HOST 0.0.0.0
 ENV PORT 8080
 ENV MONGOHQ_URL mongodb://localhost
 ENV FS_PATH /data
+ENV PYTHONPATH /src
 
 ADD requirements.txt /
 ADD extra.txt /
