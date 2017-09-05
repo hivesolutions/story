@@ -4,5 +4,5 @@
 from . import base
 from . import object
 
-from .base import BaseApiController
-from .object import ObjectApiController
+from .base import BaseAPIController
+from .object import ObjectAPIController

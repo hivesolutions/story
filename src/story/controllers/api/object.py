@@ -5,7 +5,7 @@ import appier
 
 import story
 
-class ObjectApiController(appier.Controller):
+class ObjectAPIController(appier.Controller):
 
     @appier.route("/api/objects", "GET", json = True)
     @appier.ensure(token = "admin")
