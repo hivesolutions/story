@@ -43,8 +43,7 @@ class ObjectAPIController(appier.Controller):
         # in case there's no file value found raises an exception
         # indicating such problem (should be properly handled)
         if not file: raise appier.NotFoundError(
-            message = "File not found",
-            code = 404
+            message = "File not found"
         )
 
         # sets the content disposition header indicating the name to be
