@@ -8,13 +8,13 @@ from . import base
 class Bucket(base.StoryBase):
 
     key = appier.field(
-        index = True,
+        index = "hashed",
         safe = True,
         immutable = True
     )
 
     name = appier.field(
-        index = True
+        index = "hashed"
     )
 
     @classmethod
