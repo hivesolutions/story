@@ -48,19 +48,23 @@ class ObjectAPIController(appier.Controller):
         file_name = object.file_name
         return self._handle_file(file, file_name)
 
-    def _handle_file(self, file, file_name):
+    def _handle_file(self, file, file_name, attachement = False):
         # in case there's no file value found raises an exception
         # indicating such problem (should be properly handled)
         if not file: raise appier.NotFoundError(
             message = "File not found"
         )
 
+        # creates the string version of the attachment part of the
+        # content disposition to be used in the headers
+        attachement_s = "attachment; " if attachement else ""
+
         # sets the content disposition header indicating the name to be
         # set in case the file is downloaded, this overcomes the fact
         # that the final url contains the key value
         if file_name: self.request.set_header(
             "Content-Disposition",
-            "attachment; filename=\"" + self.quote(file_name) + "\""
+            attachement_s + "filename=\"" + self.quote(file_name) + "\""
         )
 
         # verifies if the file object is "seekable" (depends on engine)

@@ -107,7 +107,7 @@ class Object(base.StoryBase):
             "object_api.details",
             key = self.key
         )
-        
+
     @property
     def file_name(self):
         object = self.reload(rules = False)
