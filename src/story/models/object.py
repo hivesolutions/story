@@ -89,7 +89,7 @@ class Object(base.StoryBase):
     @appier.link(name = "View")
     def view_url(self, absolute = False):
         return self.owner.url_for(
-            "object_api.data",
+            "object.data",
             key = self.key,
             absolute = absolute
         )
