@@ -101,6 +101,13 @@ class Object(base.StoryBase):
             key = self.key
         )
 
+    @appier.link(name = "Details")
+    def details_url(self):
+        return self.owner.url_for(
+            "object_api.details",
+            key = self.key
+        )
+        
     @property
     def file_name(self):
         object = self.reload(rules = False)

@@ -27,6 +27,15 @@ class ObjectAPIController(appier.Controller):
         object = story.Object.get(key = key, map = True)
         return object
 
+    @appier.route("/api/objects/<str:key>/details", "GET", json = True)
+    def details(self, key):
+        object = story.Object.get(key = key)
+        return dict(
+            name = object.name,
+            url = object.view_url(absolute = True)
+        )
+        return object
+
     @appier.route("/api/objects/<str:key>", "GET", json = True)
     @appier.route("/api/objects/<str:key>/data", "GET", json = True)
     def data(self, key):
