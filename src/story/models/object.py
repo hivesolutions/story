@@ -50,6 +50,22 @@ class Object(base.StoryBase):
     def order_name(cls):
         return ["id", -1]
 
+    @classmethod
+    @appier.operation(
+        name = "Upload",
+        parameters = (
+            ("Name", "name", str),
+            ("File", "file", "file")
+        ),
+        factory = True
+    )
+    def upload_s(cls, name, file):
+        file = appier.File(file)
+        name = name or file.file_name
+        object = cls(name = name, file = file)
+        object.save()
+        return object
+
     def pre_save(self):
         base.StoryBase.pre_save(self)
         if not hasattr(self, "engine") or not self.engine:
