@@ -32,6 +32,7 @@ class ObjectAPIController(appier.Controller):
         object = story.Object.get(key = key)
         return dict(
             name = object.name,
+            engine = object.engine,
             url = object.view_url(absolute = True)
         )
         return object
