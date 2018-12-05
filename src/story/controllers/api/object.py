@@ -62,9 +62,8 @@ class ObjectAPIController(appier.Controller):
 
         # sets the content disposition header indicating the name to be
         # set in case the file is downloaded, this overcomes the fact
-        # that the final url contains the key value
-        if file_name: self.request.set_header(
-            "Content-Disposition",
+        # that the final URL contains the key value
+        if file_name: self.content_disposition(
             attachement_s + "filename=\"" + self.quote(file_name) + "\""
         )
 
