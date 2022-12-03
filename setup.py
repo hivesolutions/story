@@ -28,7 +28,7 @@ setuptools.setup(
     },
     install_requires = [
         "appier",
-        "appier_extras",
+        "appier-extras",
         "commons_py"
     ],
     classifiers = [
