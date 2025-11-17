@@ -2,6 +2,8 @@
 
 session.shelve*
 
+/.venv
+
 /dist
 /build
 /src/story_python.egg-info

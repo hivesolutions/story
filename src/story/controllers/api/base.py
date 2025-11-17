@@ -5,10 +5,9 @@ import time
 
 import appier
 
+
 class BaseAPIController(appier.Controller):
 
-    @appier.route("/api/ping", "GET", json = True)
+    @appier.route("/api/ping", "GET", json=True)
     def ping(self):
-        return dict(
-            time = time.time()
-        )
+        return dict(time=time.time())

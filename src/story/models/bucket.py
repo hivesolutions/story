@@ -5,23 +5,18 @@ import appier
 
 from . import base
 
+
 class Bucket(base.StoryBase):
 
-    key = appier.field(
-        index = "hashed",
-        safe = True,
-        immutable = True
-    )
+    key = appier.field(index="hashed", safe=True, immutable=True)
 
-    name = appier.field(
-        index = "hashed"
-    )
+    name = appier.field(index="hashed")
 
     @classmethod
     def validate(cls):
         return super(Bucket, cls).validate() + [
             appier.not_null("name"),
-            appier.not_empty("name")
+            appier.not_empty("name"),
         ]
 
     @classmethod

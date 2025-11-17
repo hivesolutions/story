@@ -3,6 +3,7 @@
 
 import appier_extras
 
+
 class StoryBase(appier_extras.admin.Base):
 
     @classmethod
