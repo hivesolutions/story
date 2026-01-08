@@ -5,8 +5,8 @@ import os
 import setuptools
 
 setuptools.setup(
-    name="story_python",
-    version="0.1.1",
+    name="story-python",
+    version="0.1.2",
     author="Hive Solutions Lda.",
     author_email="development@hive.pt",
     description="Story Data System",
